@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hdu.dao.DepartmentNewsDao">
+    
+	
+	<select id="selectDepartmentNewsByDepartmentId" parameterType="int"   resultMap="DepartmentNewsMap"  >
+	   select id,departmentid,inserttime,content
+	   from department_news
+	   where departmentid = #{departmentId}
+	   order by inserttime desc
+	   limit #{limit}
+	</select>    
+	    
+	<insert id="addDepartmentNews" parameterType="com.hdu.model.DepartmentNews">
+		insert into department_news (departmentid,content,inserttime )
+		 values(#{departmentId},#{content},#{insertTime})
+	</insert>
+	
+	<delete id="deleteDepartmentNewsById"  parameterType="int" >
+	    delete from department_news where id = #{id}
+	</delete>
+	
+	 <resultMap type="DepartmentNews" id="DepartmentNewsMap">
+	     <id property="id" column="id" />  
+	     <result property="departmentId" column="departmentid"/>
+	     <result property="content" column="content"/>
+	     <result property="insertTime" column="inserttime"/>
+	</resultMap>
+	
+</mapper>

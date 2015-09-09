@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hdu.dao.AttendDao">
+    <select id="findAttendByEmployeeId" parameterType="java.util.Map" resultMap="attendMap">
+        SELECT id,emp_id,department_id,punchtime,remark
+        FROM attend
+        WHERE emp_id=#{employeeId}
+        ORDER BY punchtime DESC
+        limit #{limit}
+    </select>
+    <select id="selectAttend" parameterType="java.util.Map" resultMap="attendMap">
+        SELECT id,emp_id,department_id,punchtime,remark
+        FROM attend
+        <where>
+            <if test="attend.department_id != 0">department_id = #{attend.department_id}</if>
+        </where>
+        ORDER BY id
+        limit #{start},#{size}
+    </select>
+
+    <select id="findAttendById" parameterType="int" resultMap="attendMap">
+        SELECT id,emp_id,department_id,punchtime,remark
+        FROM attend
+        WHERE id = #{id}
+    </select>
+    <resultMap id="attendMap" type="Attend">
+        <id property="id" column="id"/>
+        <result property="emp_id" column="emp_id"/>
+        <result property="department_id" column="department_id"/>
+        <result property="punchtime" column="punchtime"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+</mapper>

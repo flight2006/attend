@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hdu.dao.EmployeeDao">
+    <select id="selectEmployeeById" parameterType="int" resultMap="employeeMap">
+        SELECT id,department_id,name,remark
+        FROM employee
+        WHERE id = #{id}
+    </select>
+    <select id="findEmployee" parameterType="java.util.Map" resultMap="employeeMap">
+        SELECT  id,department_id,name,remark
+        FROM employee
+        <where>
+            <if test="employee.department_id != 0">department_id = #{employee.department_id}</if>
+            <if test="employee.name != null and employee.name !=''">AND name LIKE CONCAT('%','${employee.name}','%')</if>
+        </where>
+        limit #{start},#{size}
+    </select>
+    <select id="selectEmployeeByDepartmentId" parameterType="int" resultMap="employeeMap">
+        SELECT id,department_id,name,remark
+        FROM employee
+        WHERE department_id = #{department_id}
+    </select>
+    <insert id="addEmployee" parameterType="com.hdu.model.Employee" >
+        INSERT INTO employee(id,department_id,name,remark)
+        VALUES (#{id},#{department_id},#{name},#{remark})
+    </insert>
+    <delete id="deleteEmployeeById" parameterType="int">
+        DELETE FROM employee  WHERE id = #{employeeId}
+    </delete>
+    <update id="updateEmployee" parameterType="com.hdu.model.Employee">
+        UPDATE employee
+        SET department_id = #{department_id},name = #{name},remark = #{remark}
+        WHERE id = #{id}
+    </update>
+
+    <update id="insertWeixinId" parameterType="java.util.Map">
+        UPDATE employee
+        SET weixin_id = #{weixinId}
+        WHERE id = #{empId}
+    </update>
+    <resultMap type="Employee" id="employeeMap">
+        <id property="id" column="id" />
+        <result property="employee_id" column="employee_id"/>
+        <result property="name" column="name"/>
+        <result property="remark" column="remark"/>
+        <result property="weixinId" column="weinxin_id"/>
+    </resultMap>
+
+</mapper>

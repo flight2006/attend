@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hdu.dao.DepartmentDao">
+
+    <select id="selectAllDepartments" parameterType="int" resultMap="departmentsMap">
+        SELECT id,name,manager,employeecount
+        FROM department
+        ORDER BY id
+    </select>
+    <select id="selectDepartmentById" parameterType="int" resultMap="departmentsMap">
+        SELECT id,name,manager,employeecount
+        FROM department
+        WHERE id = #{id}
+    </select>
+
+    <select id="selectDepartments" parameterType="java.util.HashMap" resultMap="departmentsMap">
+        SELECT id,name,manager,employeecount
+        FROM department
+        <where>
+            <if test="department.name != null">
+                name LIKE CONCAT('%','${department.name}','%')
+            </if>
+        </where>
+        ORDER BY id
+        limit #{start},#{size}
+    </select>
+
+    <insert id="addDepartment" parameterType="com.hdu.model.Department">
+        INSERT INTO department (id,name,manager,employeecount)
+        VALUE (#{id},#{name},#{manager},#{employeecount})
+    </insert>
+
+    <update id="updateDepartmentEmployeeCount" parameterType="int">
+        UPDATE department SET employeecount = (SELECT count(id) FROM employee WHERE department_id=#{id})
+        WHERE id = #{id}
+    </update>
+
+    <resultMap id="departmentsMap" type="Department">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="manager" column="manager"/>
+        <result property="employeecount" column="employeecount"/>
+    </resultMap>
+</mapper>

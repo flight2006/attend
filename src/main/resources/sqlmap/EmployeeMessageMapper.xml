@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hdu.dao.EmployeeMessageDao">
+    <select id="selectEmployeeMessageByEmployeeId" parameterType="java.util.Map" resultMap="empMsgMap">
+        SELECT id,employee_id,inserttime,content
+        FROM employee_message
+        WHERE employee_id = #{employeeId}
+        ORDER BY inserttime DESC
+        limit #{limit}
+    </select>
+
+    <insert id="addEmployeeMessage" parameterType="com.hdu.model.EmployeeMessage">
+        INSERT INTO employee_message(id,employee_id,content,inserttime)
+        VALUES (#{id},#{employeeId},#{content},#{insertTime})
+    </insert>
+
+    <delete id="deleteEmployeeMessageById" parameterType="int">
+        DELETE FROM employee_message
+        WHERE id = #{id}
+    </delete>
+
+    <resultMap id="empMsgMap" type="EmployeeMessage">
+        <id property="id" column="id"/>
+        <result property="employeeId" column="employee_id"/>
+        <result property="content" column="content"/>
+        <result property="insertTime" column="inserttime"/>
+    </resultMap>
+</mapper>

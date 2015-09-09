@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-config.dtd">  
+<configuration>  
+    <!-- 閰嶇疆mybatis鐨勭紦瀛橈紝寤惰繜鍔犺浇绛夌瓑涓�绯诲垪灞炴�� -->  
+    <settings>  
+        <!-- 鍏ㄥ眬鏄犲皠鍣ㄥ惎鐢ㄧ紦瀛� -->  
+        <setting name="cacheEnabled" value="true" />  
+        <!-- 鏌ヨ鏃讹紝鍏抽棴鍏宠仈瀵硅薄鍗虫椂鍔犺浇浠ユ彁楂樻�ц兘 -->  
+        <setting name="lazyLoadingEnabled" value="false" />
+        <!-- 璁剧疆鍏宠仈瀵硅薄鍔犺浇鐨勫舰鎬侊紝姝ゅ涓烘寜闇�鍔犺浇瀛楁(鍔犺浇瀛楁鐢盨QL鎸� 瀹�)锛屼笉浼氬姞杞藉叧鑱旇〃鐨勬墍鏈夊瓧娈碉紝浠ユ彁楂樻�ц兘 -->  
+        <setting name="aggressiveLazyLoading" value="false" />  
+        <!-- 瀵逛簬鏈煡鐨凷QL鏌ヨ锛屽厑璁歌繑鍥炰笉鍚岀殑缁撴灉闆嗕互杈惧埌閫氱敤鐨勬晥鏋� -->  
+        <setting name="multipleResultSetsEnabled" value="true" />  
+        <!-- 鍏佽浣跨敤鍒楁爣绛句唬鏇垮垪鍚� -->  
+        <setting name="useColumnLabel" value="true" />  
+        <!-- 鍏佽浣跨敤鑷畾涔夌殑涓婚敭鍊�(姣斿鐢辩▼搴忕敓鎴愮殑UUID 32浣嶇紪鐮佷綔涓洪敭鍊�)锛屾暟鎹〃鐨凱K鐢熸垚绛栫暐灏嗚瑕嗙洊 -->  
+        <!-- <setting name="useGeneratedKeys" value="true" /> -->  
+        <!-- 缁欎簣琚祵濂楃殑resultMap浠ュ瓧娈�-灞炴�х殑鏄犲皠鏀寔 -->  
+        <setting name="autoMappingBehavior" value="FULL" />  
+        <!-- 瀵逛簬鎵归噺鏇存柊鎿嶄綔缂撳瓨SQL浠ユ彁楂樻�ц兘 -->  
+        <setting name="defaultExecutorType" value="BATCH" />  
+        <!-- 鏁版嵁搴撹秴杩�25000绉掍粛鏈搷搴斿垯瓒呮椂 -->  
+        <setting name="defaultStatementTimeout" value="25000" />  
+    </settings>  
+    <typeAliases>
+   		 <typeAlias alias="Message"  type="com.hdu.model.Message" />
+   		 <typeAlias alias="Reply"  type="com.hdu.model.Reply" />
+   		 <typeAlias alias="Article"  type="com.hdu.model.Article" />
+   		 <typeAlias alias="Employee"  type="com.hdu.model.Employee" />
+   		 <typeAlias alias="Department"  type="com.hdu.model.Department" />
+   		 <typeAlias alias="Attend"  type="com.hdu.model.Attend" />
+   		 <typeAlias alias="EmployeeMessage"  type="com.hdu.model.EmployeeMessage" />
+   		 <typeAlias alias="DepartmentNews"  type="com.hdu.model.DepartmentNews" />
+	</typeAliases>
+    <mappers>
+    	<mapper resource="sqlmap/MessageMapper.xml"/>
+    	<mapper resource="sqlmap/EmployeeMapper.xml"/>
+    	<mapper resource="sqlmap/EmployeeMessageMapper.xml"/>
+    	<mapper resource="sqlmap/DepartmentNewsMapper.xml"/>
+    	<mapper resource="sqlmap/DepartmentMapper.xml"/>
+        <mapper resource="sqlmap/ReplyMapper.xml"/>
+        <mapper resource="sqlmap/AttendMapper.xml"/>
+    </mappers>
+</configuration>
